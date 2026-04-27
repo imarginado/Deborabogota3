@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta · Debora · Menú Bogotá 2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;1,9..144,200;1,9..144,700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --cream:    #FFFAF0;
+  --cream2:   #F2ECD8;
+  --carbon:   #292b2d;
+  --carbon2:  #3e4144;
+  --sage:     #B9C1AA;
+  --orange:   #FE632C;
+  --green:    #2dcc70;
+  --muted:    #7a7d72;
+  --rule:     #ddd8cc;
+  --white:    #ffffff;
+
+  --nav-h: 52px;
+  --gutter: clamp(20px, 5vw, 56px);
+  --content: 880px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--carbon);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: var(--carbon);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  gap: 12px;
+}
+
+.nav-brand {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.nav-brand span {
+  color: var(--orange);
+}
+
+/* hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.25s;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* desktop links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: 0 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+  line-height: var(--nav-h);
+}
+
+.nav-links a:hover { color: var(--orange); }
+.nav-links a.active { color: var(--white); }
+
+/* mobile menu */
+@media (max-width: 640px) {
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    background: var(--carbon);
+    padding: 12px 0 20px;
+    gap: 0;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-links a {
+    line-height: 1;
+    padding: 14px var(--gutter);
+    font-size: 13px;
+    border-bottom: 1px solid #3e4144;
+  }
+}
+
+/* ── LAYOUT ── */
+.wrap {
+  max-width: var(--content);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+section {
+  padding-top: calc(var(--nav-h) + 0px);
+  margin-top: calc(-1 * var(--nav-h));
+}
+
+/* ── HERO ── */
+#hero {
+  padding-top: calc(var(--nav-h) + 48px);
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: end;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(48px, 8vw, 92px);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: var(--carbon);
+}
+
+.hero-title .cursor {
+  color: var(--orange);
+}
+
+.hero-sub {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 200;
+  font-size: clamp(24px, 3.5vw, 40px);
+  color: var(--muted);
+  line-height: 1.15;
+  margin-top: 10px;
+}
+
+.hero-meta {
+  min-width: 240px;
+}
+
+.meta-row {
+  display: flex;
+  flex-direction: column;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.meta-row:first-child { border-top: 1px solid var(--rule); }
+
+.meta-k {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.meta-v {
+  font-size: 13px;
+  color: var(--carbon);
+  line-height: 1.5;
+}
+
+@media (max-width: 620px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-meta { min-width: 0; margin-top: 32px; }
+}
+
+/* ── SECTION HEADER ── */
+.sec-hd {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 40px;
+  padding-top: 56px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.sec-n {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+}
+
+.sec-t {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--carbon2);
+}
+
+.sec-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── DESCRIPCIÓN ── */
+.desc-lead {
+  font-family: 'Fraunces', serif;
+  font-weight: 200;
+  font-size: clamp(22px, 2.8vw, 30px);
+  line-height: 1.35;
+  color: var(--carbon);
+  max-width: 620px;
+  margin-bottom: 24px;
+}
+
+.desc-lead em {
+  font-style: italic;
+  color: var(--orange);
+}
+
+.desc-body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.85;
+}
+
+/* ── DELIVERABLES ── */
+.dlv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-top: 40px;
+}
+
+.dlv {
+  background: var(--cream);
+  padding: 28px 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dlv::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+}
+
+.dlv:nth-child(1)::before { background: var(--orange); }
+.dlv:nth-child(2)::before { background: var(--sage); }
+.dlv:nth-child(3)::before { background: var(--green); }
+.dlv:nth-child(4)::before { background: var(--orange); opacity: 0.4; }
+
+.dlv-n {
+  font-family: 'Fraunces', serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cream2);
+  margin-bottom: 12px;
+}
+
+.dlv-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--carbon);
+  margin-bottom: 8px;
+}
+
+.dlv-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+@media (max-width: 560px) {
+  .dlv-grid { grid-template-columns: 1fr; }
+}
+
+/* ── TIMETABLE ── */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--rule);
+}
+
+.tl-col {
+  padding: 24px 20px 28px;
+  border-right: 1px solid var(--rule);
+}
+
+.tl-col:last-child { border-right: none; }
+
+.tl-col.is-now {
+  background: var(--carbon);
+}
+
+.tl-week {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.tl-col.is-now .tl-week { color: var(--sage); }
+
+.tl-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--orange);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.tl-col.is-now .tl-date { color: var(--green); }
+
+.tl-name {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--carbon);
+  margin-bottom: 14px;
+}
+
+.tl-col.is-now .tl-name { color: var(--white); }
+
+.tl-list {
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 2;
+}
+
+.tl-col.is-now .tl-list { color: var(--sage); }
+
+.tl-list li::before { content: '→ '; color: var(--rule); }
+.tl-col.is-now .tl-list li::before { color: var(--green); }
+
+@media (max-width: 640px) {
+  .timeline {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tl-col:nth-child(2) { border-right: none; }
+  .tl-col:nth-child(1),
+  .tl-col:nth-child(2) {
+    border-bottom: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 380px) {
+  .timeline { grid-template-columns: 1fr; }
+  .tl-col { border-right: none; border-bottom: 1px solid var(--rule); }
+  .tl-col:nth-child(2) { border-bottom: 1px solid var(--rule); }
+}
+
+/* ── INVERSIÓN ── */
+.inv-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.inv-row:first-child { border-top: 1px solid var(--rule); }
+
+.inv-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--carbon);
+  margin-bottom: 4px;
+}
+
+.inv-detail {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.inv-price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--carbon);
+  white-space: nowrap;
+  text-align: right;
+  padding-top: 2px;
+}
+
+@media (max-width: 480px) {
+  .inv-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .inv-price { text-align: left; }
+}
+
+/* ── TOTAL ── */
+.total-block {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: end;
+}
+
+.total-notes {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 400px;
+}
+
+.total-notes strong {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--carbon);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.total-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* ── precio sin símbolo, en verde, sin bold ── */
+.total-fig {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(44px, 6vw, 72px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--green);
+}
+
+.total-currency {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.total-words {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+@media (max-width: 560px) {
+  .total-block {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.prod-strip {
+  margin-top: 32px;
+  background: var(--carbon);
+  color: var(--sage);
+  padding: 18px 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.8;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.prod-strip .tag {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── CONDITIONS ── */
+.cond-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 48px;
+  padding-bottom: 64px;
+}
+
+.cond-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+
+.cond-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+@media (max-width: 560px) {
+  .cond-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ── FOOTER ── */
+#footer-sec {
+  background: var(--carbon);
+  color: var(--sage);
+}
+
+.footer-inner {
+  padding: 52px var(--gutter) 48px;
+  max-width: var(--content);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.ftr-name {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 200;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.ftr-role {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 20px;
+}
+
+.ftr-contact {
+  font-size: 14px;
+  color: var(--sage);
+  line-height: 2.1;
+}
+
+.ftr-contact a { color: var(--orange); text-decoration: none; }
+
+.validity-pill {
+  display: inline-block;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  margin-top: 22px;
+}
+
+.ftr-client-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.ftr-client-name {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 200;
+  color: var(--cream2);
+  margin-bottom: 4px;
+}
+
+.ftr-client-detail {
+  font-size: 14px;
+  color: var(--sage);
+  line-height: 2;
+  opacity: 0.7;
+}
+
+@media (max-width: 560px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+}
+
+.bottom-bar {
+  background: #1c1e1f;
+  max-width: 100%;
+  padding: 14px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4a4d4f;
+}
+
+/* ── SECTION PADDING ── */
+.section-body {
+  padding-bottom: 16px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">DEBORA<span>_</span> Bogotá 2.0</div>
+  <button class="nav-toggle" id="toggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#descripcion">Descripción</a></li>
+    <li><a href="#tiempo">Tiempo</a></li>
+    <li><a href="#inversion">Inversión</a></li>
+    <li><a href="#condiciones">Condiciones</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Propuesta de servicios · No. 0427DB · 27 abr 2026</div>
+        <div class="hero-title">DEBORA<span class="cursor">_</span></div>
+        <div class="hero-sub">Menú Bogotá 2.0</div>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-row">
+          <span class="meta-k">Cliente</span>
+          <span class="meta-v">Debora Restaurante<br>Valentino Galán</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-k">Elaborado por</span>
+          <span class="meta-v">Javier Lizarazo<br>@imarginado</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-k">Contacto</span>
+          <span class="meta-v">+57 301 486 6178<br>imarginado@gmail.com</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-k">Vigencia</span>
+          <span class="meta-v">10 días · hasta 7 may 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 · DESCRIPCIÓN -->
+<section id="descripcion">
+  <div class="wrap">
+    <div class="sec-hd">
+      <span class="sec-n">01</span>
+      <span class="sec-t">Descripción</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="section-body">
+      <p class="desc-lead">
+        Segunda edición del menú físico de degustación de Debora.
+        <em>8 ilustraciones originales de barrios bogotanos,</em>
+        estructura del plegable Bogotá 1.0 revisitada con un tono más urbano, más cercano.
+      </p>
+      <p class="desc-body">
+        La pieza retoma el acordeón de 8 paneles con portada independiente, actualiza el diseño editorial
+        para alinearse con la nueva dirección del espacio, y se concibe como objeto de experiencia
+        y memorabilia. Javier Lizarazo acompaña el proceso desde el brief hasta la entrega física
+        de las 1.000 copias en el restaurante.
+      </p>
+
+      <div class="dlv-grid">
+        <div class="dlv">
+          <div class="dlv-n">01</div>
+          <div class="dlv-title">Diseño editorial</div>
+          <div class="dlv-desc">Adaptación del sistema Bogotá 1.0: 8 barrios, nuevo chef, tono visual ajustado.</div>
+        </div>
+        <div class="dlv">
+          <div class="dlv-n">02</div>
+          <div class="dlv-title">8 ilustraciones originales</div>
+          <div class="dlv-desc">Una ilustración por barrio. Estilo definido en brief conjunto con Valentino y Cristian.</div>
+        </div>
+        <div class="dlv">
+          <div class="dlv-n">03</div>
+          <div class="dlv-title">Archivos preprensa</div>
+          <div class="dlv-desc">PDF con sangrado, troquelado y perfiles de color listos para imprenta.</div>
+        </div>
+        <div class="dlv">
+          <div class="dlv-n">04</div>
+          <div class="dlv-title">Gestión de producción</div>
+          <div class="dlv-desc">Cotización 2–3 proveedores, selección de papel, seguimiento hasta entrega.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · TIEMPO -->
+<section id="tiempo">
+  <div class="wrap">
+    <div class="sec-hd">
+      <span class="sec-n">02</span>
+      <span class="sec-t">Tabla de tiempo</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="section-body">
+      <div class="timeline">
+        <div class="tl-col is-now">
+          <div class="tl-week">Semana 0</div>
+          <div class="tl-date">29 may</div>
+          <div class="tl-name">Brief & degustación</div>
+          <ul class="tl-list">
+            <li>Prueba del menú nuevo</li>
+            <li>Definición 8 barrios</li>
+            <li>Sesión con Valentino y Cristian Mcallister</li>
+          </ul>
+        </div>
+        <div class="tl-col">
+          <div class="tl-week">Semana 1</div>
+          <div class="tl-date">2–6 jun</div>
+          <div class="tl-name">Ilustración & concepto</div>
+          <ul class="tl-list">
+            <li>Exploración visual</li>
+            <li>Primera serie</li>
+            <li>Revisión con cliente</li>
+          </ul>
+        </div>
+        <div class="tl-col">
+          <div class="tl-week">Semana 2</div>
+          <div class="tl-date">9–13 jun</div>
+          <div class="tl-name">Diseño & diagramación</div>
+          <ul class="tl-list">
+            <li>Ajustes ilustraciones</li>
+            <li>Maquetación completa</li>
+            <li>Cotización proveedores</li>
+          </ul>
+        </div>
+        <div class="tl-col">
+          <div class="tl-week">Semana 3</div>
+          <div class="tl-date">16–20 jun</div>
+          <div class="tl-name">Producción & entrega</div>
+          <ul class="tl-list">
+            <li>Aprobación final</li>
+            <li>Entrada a imprenta</li>
+            <li>Control y entrega</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · INVERSIÓN -->
+<section id="inversion">
+  <div class="wrap">
+    <div class="sec-hd">
+      <span class="sec-n">03</span>
+      <span class="sec-t">Inversión</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="section-body">
+
+      <div class="inv-row">
+        <div>
+          <div class="inv-name">Actualización de diseño editorial</div>
+          <div class="inv-detail">Adaptación del sistema Bogotá 1.0 · nueva edición, nuevos barrios, ajuste de tono visual</div>
+        </div>
+        <div class="inv-price">400 000</div>
+      </div>
+      <div class="inv-row">
+        <div>
+          <div class="inv-name">8 ilustraciones originales · Barrios de Bogotá</div>
+          <div class="inv-detail">Ilustración digital exclusiva · derechos de uso para el menú físico incluidos</div>
+        </div>
+        <div class="inv-price">1 500 000</div>
+      </div>
+      <div class="inv-row">
+        <div>
+          <div class="inv-name">Coordinación de producción</div>
+          <div class="inv-detail">Selección de proveedor · gestión de impresión · control de calidad · entrega 1.000 copias</div>
+        </div>
+        <div class="inv-price">400 000</div>
+      </div>
+
+      <div class="total-block">
+        <div class="total-notes">
+          <strong>Producción / Impresión</strong>
+          Los costos de impresión se cotizan por separado y se presentan al cliente para aprobación antes de entrar a producción. Es posible aplicar una reducción del 5% sobre honorarios si se requiere ajuste.
+        </div>
+        <div>
+          <div class="total-label">Total honorarios · COP</div>
+          <div class="total-fig">2 600 000</div>
+          <div class="total-words">Dos millones seiscientos mil pesos</div>
+        </div>
+      </div>
+
+      <div class="prod-strip">
+        <span class="tag">Nota</span>
+        <span>Los costos de impresión para 1.000 unidades se gestionan directamente con el proveedor elegido por el cliente. Javier Lizarazo actúa como director de producción sin margen adicional sobre el costo de imprenta.</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 04 · CONDICIONES -->
+<section id="condiciones">
+  <div class="wrap">
+    <div class="sec-hd">
+      <span class="sec-n">04</span>
+      <span class="sec-t">Condiciones generales</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="section-body">
+      <div class="cond-grid">
+        <div>
+          <div class="cond-label">Anticipo</div>
+          <div class="cond-text">60% al inicio del proyecto, contra entrega de la información de brief y confirmación de los 8 barrios. El 40% restante a la entrega de archivos finales.</div>
+        </div>
+        <div>
+          <div class="cond-label">Ajustes incluidos</div>
+          <div class="cond-text">Hasta 3 rondas de revisión en diseño e ilustración. Cambios adicionales se cotizan con un recargo del 30% sobre el valor del ítem.</div>
+        </div>
+        <div>
+          <div class="cond-label">Derechos de uso</div>
+          <div class="cond-text">Ilustraciones entregadas con derechos de uso exclusivo para el menú físico de Debora. Cualquier otro uso requiere acuerdo adicional.</div>
+        </div>
+        <div>
+          <div class="cond-label">Inicio del proyecto</div>
+          <div class="cond-text">Arranque formal: reunión de brief del 29 de mayo y pago del anticipo. El tiempo estimado de entrega es de 3 semanas, con una variación posible de ±1 semana según el flujo de aprobaciones y ajustes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div id="footer-sec">
+  <div class="footer-inner">
+    <div>
+      <div class="ftr-name">Javier Lizarazo</div>
+      <div class="ftr-role">Experto en Comunicación Visual · @imarginado</div>
+      <div class="ftr-contact">
+        +57 301 486 6178<br>
+        <a href="mailto:imarginado@gmail.com">imarginado@gmail.com</a><br>
+        Bogotá · Colombia
+      </div>
+      <div class="validity-pill">Vigencia · 10 días · hasta 7 may 2026</div>
+    </div>
+    <div>
+      <div class="ftr-client-label">Para</div>
+      <div class="ftr-client-name">Debora Restaurante</div>
+      <div class="ftr-client-detail">
+        Valentino Galán<br>
+        valentino@deborarestaurante.com<br>
+        Bogotá · Colombia
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <span>Propuesta No. 0427DB · Imarginado</span>
+    <span>welcome :)</span>
+  </div>
+</div>
+
+<script>
+  // ── Hamburger toggle
+  const toggle = document.getElementById('toggle');
+  const links  = document.getElementById('nav-links');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
+  });
+
+  // ── Nav scroll: preventDefault + offset manual para el nav fijo
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      // cerrar menú móvil
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+      // scroll con offset
+      const target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      const navH = document.getElementById('nav').offsetHeight;
+      const top = target.getBoundingClientRect().top + window.scrollY - navH;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  // ── Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
